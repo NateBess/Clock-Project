@@ -1,4 +1,4 @@
-const updateTime = async () => {
+const updateTime = () => {
   let date = Date().toString();
 
   let currentTime = date.slice(18, 24);
@@ -12,47 +12,31 @@ const updateTime = async () => {
   let abreviation = "None";
   let year = date.slice(11, 15);
 
-  if (dayName === "Mon") {
-    dayName = "Monday";
-  } else if (dayName === "Tue") {
-    dayName = "Tuesday";
-  } else if (dayName === "Wed") {
-    dayName = "Wednesday";
-  } else if (dayName === "Thu") {
-    dayName = "Thursday";
-  } else if (dayName === "Fri") {
-    dayName = "Friday";
-  } else if (dayName === "Sat") {
-    dayName = "Saturday";
-  } else if (dayName === "Sun") {
-    dayName = "Sunday";
-  }
-
-  if (monthName === "Jan") {
-    monthName = "January";
-  } else if (monthName === "Feb") {
-    monthName = "February";
-  } else if (monthName === "Mar") {
-    monthName = "March";
-  } else if (monthName === "Apr") {
-    monthName = "April";
-  } else if (monthName === "May") {
-    monthName = "May";
-  } else if (monthName === "Jun") {
-    monthName = "June";
-  } else if (monthName === "Jul") {
-    monthName = "July";
-  } else if (monthName === "Aug") {
-    monthName = "August";
-  } else if (monthName === "Sep") {
-    monthName = "September";
-  } else if (monthName === "Oct") {
-    monthName = "October";
-  } else if (monthName === "Nov") {
-    monthName = "November";
-  } else if (monthName === "Dec") {
-    monthName = "December";
-  }
+  const weekNames = {
+    Mon: "Monday",
+    Tue: "Tuesday",
+    Wed: "Wednesday",
+    Thu: "Thursday",
+    Fri: "Friday",
+    Sat: "Saturday",
+    Sun: "Sunday",
+  };
+  const monthNames = {
+    Jan: "January",
+    Feb: "February",
+    Mar: "March",
+    Apr: "April",
+    May: "May",
+    Jun: "June",
+    Jul: "July",
+    Aug: "August",
+    Sep: "September",
+    Oct: "October",
+    Nov: "November",
+    Dec: "December",
+  };
+  dayName = weekNames[dayName];
+  monthName = monthNames[monthName];
 
   if (lastNumberOfDay > 3 && lastNumberOfDay < 21) {
     abreviation = "th";
@@ -66,29 +50,27 @@ const updateTime = async () => {
     abreviation = "th";
   }
 
-  if (currentHour > 12) {
+  if (currentHour > 11) {
     timeTitle = "PM";
-    currentHour = currentHour - 12;
-    currentTime = currentHour + currentTime;
   }
-  /*
-  console.log(dayName);
-  console.log(monthName);
-  console.log(dayNumber + `${abreviation}`);
-  console.log(year);
-  console.log(currentTime + ` ${timeTitle}`);
-  console.log(currentHour);
-  */
+  if (currentHour > 12) {
+    currentHour = currentHour - 12;
+    if (currentHour < 10) {
+      currentTime = `0${currentHour}${currentTime}`;
+    } else {
+      currentTime = `${currentHour}${currentTime}`;
+    }
+  } else {
+    currentTime = `${currentHour}${currentTime}`;
+  }
 
   const currentTimeElement = document.getElementById("current-time");
   const currentDateElement = document.getElementById("current-date");
+  let dayNum = dayNumber + abreviation;
 
   currentTimeElement.textContent = `${currentTime} ${timeTitle}`;
-  currentDateElement.textContent = `${dayName}, ${monthName} ${
-    dayNumber + abreviation
-  } ${year}`;
+  currentDateElement.textContent = `${dayName}, ${monthName} ${dayNum} ${year}`;
 
-  setTimeout(updateTime, 500);
+  setTimeout(updateTime, 1000);
 };
-
 updateTime();
