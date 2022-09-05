@@ -22,55 +22,56 @@ const monthNames = {
   Dec: "December",
 };
 
-const updateTime = () => {
-  const date = Date().toString();
+const getAmPm = (hour) => (hour > 11 ? "PM" : "AM");
 
-  let currentTime = date.slice(18, 24);
-  let currentHour = date.slice(16, 18);
-  let timeTitle = "AM";
-
-  let dayName = date.slice(0, 3);
-  let monthName = date.slice(4, 7);
-  let dayNumber = parseInt(date.slice(8, 11), 10);
-  let lastNumberOfDay = parseInt(date.slice(9, 11), 10);
-  let abreviation = "None";
-  let year = date.slice(11, 15);
-
-  dayName = weekNames[dayName];
-  monthName = monthNames[monthName];
-
-  if (lastNumberOfDay > 3 && lastNumberOfDay < 21) {
-    abreviation = "th";
-  } else if (lastNumberOfDay === 1) {
-    abreviation = "st";
-  } else if (lastNumberOfDay === 2) {
-    abreviation = "nd";
-  } else if (lastNumberOfDay === 3) {
-    abreviation = "rd";
-  } else {
-    abreviation = "th";
-  }
-
-  if (currentHour > 11) {
-    timeTitle = "PM";
-  }
+const getCurrentTimeString = (currentHour, currentTime) => {
   if (currentHour > 12) {
     currentHour = currentHour - 12;
     if (currentHour < 10) {
-      currentTime = `0${currentHour}${currentTime}`;
-    } else {
-      currentTime = `${currentHour}${currentTime}`;
+      return `0${currentHour}${currentTime}`;
     }
-  } else {
-    currentTime = `${currentHour}${currentTime}`;
   }
+  return `${currentHour}${currentTime}`;
+};
+
+const getOrdinal = (lastNumberOfDay) => {
+  if (lastNumberOfDay > 3 && lastNumberOfDay < 21) {
+    return "th";
+  }
+  if (lastNumberOfDay === 1) {
+    return "st";
+  }
+  if (lastNumberOfDay === 2) {
+    return "nd";
+  }
+  if (lastNumberOfDay === 3) {
+    return "rd";
+  }
+};
+
+const updateTime = () => {
+  const date = Date().toString();
+
+  const currentTime = date.slice(18, 24);
+  const currentHour = date.slice(16, 18);
+
+  const dayAbbreviation = date.slice(0, 3);
+  const monthAbbreviation = date.slice(4, 7);
+  const dayNumber = parseInt(date.slice(8, 11), 10);
+  const lastNumberOfDay = parseInt(date.slice(9, 11), 10);
+  const year = date.slice(11, 15);
+
+  const day = weekNames[dayAbbreviation];
+  const month = monthNames[monthAbbreviation];
+
+  let dayNum = dayNumber + getOrdinal(lastNumberOfDay);
+  const currentTimeString = getCurrentTimeString(currentHour, currentTime);
+  const amPm = getAmPm(currentHour);
 
   const currentTimeElement = document.getElementById("current-time");
+  currentTimeElement.textContent = `${currentTimeString} ${amPm}`;
   const currentDateElement = document.getElementById("current-date");
-  let dayNum = dayNumber + abreviation;
-
-  currentTimeElement.textContent = `${currentTime} ${timeTitle}`;
-  currentDateElement.textContent = `${dayName}, ${monthName} ${dayNum} ${year}`;
+  currentDateElement.textContent = `${day}, ${month} ${dayNum} ${year}`;
 
   setTimeout(updateTime, 1000);
 };
