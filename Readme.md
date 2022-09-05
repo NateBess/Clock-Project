@@ -2,7 +2,7 @@
 
 <br>
 
-View it [here](https://natebess.github.io/Clock-Project/)
+View this project [here](https://natebess.github.io/Clock-Project/)
 
 <br>
 
