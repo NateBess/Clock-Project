@@ -1,5 +1,29 @@
+const weekNames = {
+  Mon: "Monday",
+  Tue: "Tuesday",
+  Wed: "Wednesday",
+  Thu: "Thursday",
+  Fri: "Friday",
+  Sat: "Saturday",
+  Sun: "Sunday",
+};
+const monthNames = {
+  Jan: "January",
+  Feb: "February",
+  Mar: "March",
+  Apr: "April",
+  May: "May",
+  Jun: "June",
+  Jul: "July",
+  Aug: "August",
+  Sep: "September",
+  Oct: "October",
+  Nov: "November",
+  Dec: "December",
+};
+
 const updateTime = () => {
-  let date = Date().toString();
+  const date = Date().toString();
 
   let currentTime = date.slice(18, 24);
   let currentHour = date.slice(16, 18);
@@ -12,29 +36,6 @@ const updateTime = () => {
   let abreviation = "None";
   let year = date.slice(11, 15);
 
-  const weekNames = {
-    Mon: "Monday",
-    Tue: "Tuesday",
-    Wed: "Wednesday",
-    Thu: "Thursday",
-    Fri: "Friday",
-    Sat: "Saturday",
-    Sun: "Sunday",
-  };
-  const monthNames = {
-    Jan: "January",
-    Feb: "February",
-    Mar: "March",
-    Apr: "April",
-    May: "May",
-    Jun: "June",
-    Jul: "July",
-    Aug: "August",
-    Sep: "September",
-    Oct: "October",
-    Nov: "November",
-    Dec: "December",
-  };
   dayName = weekNames[dayName];
   monthName = monthNames[monthName];
 
