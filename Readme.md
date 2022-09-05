@@ -7,7 +7,14 @@ View this project [here](https://natebess.github.io/Clock-Project/)
 <br>
 
 <image src="Digital-Clock.png">
-Uses the following: JavaScript, HTML, and CSS
+
+## Technologies
+
+<ul>
+<li>JavaScript</li>
+<li>HTML</li>
+<li>CSS</li>
+</ul>
 
 ## Summary
 
